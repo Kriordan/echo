@@ -25,11 +25,20 @@ end
 
 def gettysburg #requests filename for list of sayables
   puts "Ok, where can I find what you want to say?"
-  notepad = gets.chomp
-  puts "Loading #{notepad}"
-  File.open(notepad, 'r').each_line do |line|
+  @notepad = gets.chomp
+  file_exists?(@notepad)
+  puts "Loading #{@notepad}"
+  File.open(@notepad, 'r').each_line do |line|
     string = line
     @strings << string
+  end
+end
+
+def file_exists?(file)
+  if !File.exists?(file) 
+    puts "Where can I find what you want to say?"
+    @notepad = gets.chomp
+    file_exists?(@notepad)
   end
 end
 
